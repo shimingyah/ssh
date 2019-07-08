@@ -23,21 +23,21 @@ function color(){
 }
 
 function copyright(){
-    echo "##############################"
-    color blue "   SSH Login Platform   "
-    echo "##############################"
+    echo "########################################################"
+    color blue "                SSH Login Platform           "
+    echo "########################################################"
     echo
 }
 
 function underline(){
-    echo "-----------------------------------------"
+    echo "--------------------------------------------------------"
 }
 
 function main(){
     while [ True ];do
-        echo "序号 |       主机      | 说明"
+        echo "序号 |               主机             | 说明"
         underline
-        awk 'BEGIN {FS=":"} {printf("\033[0;31m% 3s \033[m | %15s | %s\n",$1,$2,$6)}' $direc/password.list
+        awk 'BEGIN {FS=":"} {printf("\033[0;31m% 3s \033[m | %30s | %s\n",$1,$2,$6)}' $direc/password.list
         underline
         read -p '[*] 选择主机: ' number
         pw="$direc/password.list"
@@ -54,7 +54,7 @@ function main(){
                     ssh -i $direc/keys/$passwd $username@$ipaddr -p $port
                     echo "ssh -i $direc/$passwd $username@$ipaddr -p $port"
                 else
-                    expect -f $direc/ssh_login.exp $ipaddr $username $passwd $port
+                    expect -f $direc/login.exp $ipaddr $username $passwd $port
                 fi
             ;;
             "q"|"quit")
